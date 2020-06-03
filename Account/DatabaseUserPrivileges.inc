@@ -15,15 +15,15 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 interface DatabaseUserPrivileges {
 
 	/**
-     * provides the database name.
-     *
+	 * provides the database name.
+	 *
 	 * @return string the database name.
 	 */
 	public function getDatabaseName(): string;
 
 	/**
-     * provides the database user grants.
-     *
+	 * provides the database user grants.
+	 *
 	 * @return array an array with all of the database user grants.
 	 */
 	public function getGrants(): array;
