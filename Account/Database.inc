@@ -48,42 +48,38 @@ interface Database {
 	];
 
 	/**
-     * returns the panel id (same panel id as in \JetBackup\Core\Panel\Integration\PanelInfo::getId()).
+     * provides the panel id.
+     * the panel id is the same panel id as in \JetBackup\Core\Panel\Integration\PanelInfo::getId().
      *
 	 * @return string represents the panel.
-     * @throws PanelException
 	 */
 	public function getPanel(): string;
 
 	/**
-     * returns the name of the database.
+     * provides the name of the database.
      *
 	 * @return string the database name.
-     * @throws PanelException
 	 */
 	public function getName(): string;
 
 	/**
-     * returns the engine of the database.
+     * provides the engine of the database.
      *
-	 * @return int the database engine (mysql/mongodb/postgresql).
+	 * @return int the database engine (see @uses for available engine types).
      *
-     * @uses Database::ENGINE_MYSQL mysql database engine.
-     * @uses Database::ENGINE_MONGODB mogodb database engine.
-     * @uses Database::ENGINE_POSTGRESQL postgresql database engine.
-     *
-     * @throws PanelException
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
 	 */
 	public function getEngine(): int;
 
 	/**
-     * returns the custom data of the database (optional, can returns an empty string).
+     * provides the custom data of the database (optional, can returns an empty string).
      * it includes any information that the panel needs for the database.
      * its an internal data of the panel, it can receives whatever the panel needs,
      * the data will be backed up and restored as is.
      *
 	 * @return string the custom data of the database.
-     * @throws PanelException
 	 */
 	public function getCustomData(): string;
 
@@ -91,7 +87,7 @@ interface Database {
      * removes the database.
      *
      * @return void
-	 * @throws PanelException
+	 * @throws PanelException throws if there is an issue with removing the database.
 	 */
 	public function remove();
 }

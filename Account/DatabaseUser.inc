@@ -17,58 +17,52 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 interface DatabaseUser {
 
 	/**
-     * returns the panel id (same panel id as in \JetBackup\Core\Panel\Integration\PanelInfo::getId()).
+     * provides the panel id.
+     * the panel id is the same panel id as in \JetBackup\Core\Panel\Integration\PanelInfo::getId().
      *
 	 * @return string represents the panel.
-     * @throws PanelException
 	 */
 	public function getPanel(): string;
 
 	/**
-     * returns the name of the database user.
+     * provides the name of the database user.
      *
 	 * @return string|null the database user name.
-     * @throws PanelException
 	 */
 	public function getName():? string;
 
 	/**
-     * returns the password of the database user.
+     * provides the password of the database user.
      *
 	 * @return string|null the database user password.
-     * @throws PanelException
 	 */
 	public function getPassword():? string;
 
 	/**
-     * returns the engine of the database.
+     * provides the engine of the database.
      *
-	 * @return int the database engine.
+	 * @return int the database engine (see @uses for available engine types).
      *
-     * @uses Database::ENGINE_MYSQL mysql database engine.
-     * @uses Database::ENGINE_MONGODB mogodb database engine.
-     * @uses Database::ENGINE_POSTGRESQL postgresql database engine.
-     *
-     * @throws PanelException
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
 	 */
 	public function getEngine(): int;
 
 	/**
-     * returns the privileges of the database user.
+     * provides the privileges of the database user.
      *
 	 * @return DatabaseUserPrivileges[] array of DatabaseUserPrivileges - holds all the needed information about the database user privileges.
-     * @throws PanelException
 	 */
 	public function getPrivileges(): array;
 
 	/**
-     * returns the custom data of the database user (optional, can returns an empty string).
+     * provides the custom data of the database user (optional, can returns an empty string).
      * it includes any information that the panel needs for the database user.
      * its an internal data of the panel, it can receives whatever the panel needs,
      * the data will be backed up and restored as is.
      *
 	 * @return string the custom data of the database user.
-     * @throws PanelException
 	 */
 	public function getCustomData(): string;
 
@@ -76,7 +70,7 @@ interface DatabaseUser {
      * removes the database user.
      *
      * @return void
-	 * @throws PanelException
+	 * @throws PanelException throws if there is an issue with removing the database user.
 	 */
 	public function remove();
 }

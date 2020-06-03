@@ -13,7 +13,6 @@ namespace JetBackup\Core\Panel\Integration;
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Core\Panel\Integration\Account\Account;
 use JetBackup\Core\Panel\Integration\Account\Config;
-use JetBackup\Core\Panel\Integration\Account\Database;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
@@ -29,48 +28,50 @@ interface Panel {
 	public function __construct(PanelSettings $settings);
 
 	/**
-     * returns the panel information (id, name, version and tier).
+     * provides the information about the panel.
+     * the information return as PanelInfo and includes the panel id, name, version and tier.
      *
 	 * @return PanelInfo holds all the needed information about the panel.
-     * @throws PanelException
 	 */
 	public function getInfo(): PanelInfo;
 
 	/**
+     * provides the path to the public directory.
      * returns the full path of the public directory, where all the GUI files placed.
      *
 	 * @return string the full path of the public directory.
-     * @throws PanelException
 	 */
 	public function getPublicDir(): string;
 
 	/**
-     * returns the number of accounts in the panel.
+     * provides the number of accounts in the panel.
      *
 	 * @return int the number of accounts.
-	 * @throws PanelException
+	 * @throws PanelException throws if there is an issue with getting the number of accounts in the panel.
 	 */
 	public function countAccounts(): int;
 
 	/**
-     * returns an array of the panel accounts.
+     * provides an array of the panel accounts.
+     * the amount of accounts in the array is set by the $limit variable.
      *
 	 * @param int $limit the limit of the results per chunk.
 	 * @param int $page the pagination number you want to receive.
 	 *
-	 * @return Account[] an array of the panel Account, the amount of accounts is set by the $limit variable.
-     *
-	 * @throws PanelException
+	 * @return Account[] an array of the panel Account.
+	 * @throws PanelException throws if there is an issue with getting the accounts in the panel.
 	 */
 	public function listAccounts($limit=0, $page=0): array;
 
 	/**
-     * returns the account that its username matches the passed $username parameter.
+     * provides the desired account information.
+     * the information return as Account and includes the information about the account
+     * witch its username matches the passed $username parameter.
      *
 	 * @param string $username the username of the desired account.
 	 *
 	 * @return Account|null the desired account.
-	 * @throws PanelException
+	 * @throws PanelException throws if there is an issue with getting the accounts.
 	 */
 	public function getAccount($username):? Account;
 
@@ -83,20 +84,19 @@ interface Panel {
 	 * @param Config $config the needed config for the new account creation.
 	 *
 	 * @return Account the new added account.
-	 * @throws PanelException
+	 * @throws PanelException throws if there is an issue with creating the accounts.
 	 */
 	public function createAccount($username, Config $config): Account;
 
 	/**
-     * returns the database authentication information.
+     * provides the database authentication information.
      *
-	 * @param int $engine the database engine (mysql/mongodb/postgresql).
-     * @uses Database::ENGINE_MYSQL mysql database engine.
-     * @uses Database::ENGINE_MONGODB mogodb database engine.
-     * @uses Database::ENGINE_POSTGRESQL postgresql database engine.
+	 * @param int $engine the database engine (see @uses for available engine types).
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
+     * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
 	 *
-	 * @return DatabaseAuth holds the database authentication information.
-     * @throws PanelException
+	 * @return DatabaseAuth|null holds the database authentication information.
 	 */
 	public function getDatabaseAuth($engine):? DatabaseAuth;
 }
