@@ -1,3 +1,4 @@
 ## JetBackup 5 Panel Integration
 
-Developer Documentation: https://docs-stage.jetbackup.com/developer/namespaces/jetbackup-core-panel-integration.html
+Developer Documentation: https://docs.jetbackup.com/developer/manual
+Panel integration should be implemented under `/usr/local/jetapps/var/lib/jetbackup/Panel` directory
