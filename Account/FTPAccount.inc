@@ -18,7 +18,8 @@ interface FTPAccount {
 
 	/**
 	 * provides the panel id.
-	 * the panel id is the same panel id as in \JetBackup\Core\Panel\Integration\PanelInfo::getId().
+	 * the the panel id needs to be as follow 'namespace_name'.
+	 * e.g. 'MyCompany_PanelName'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -40,8 +41,10 @@ interface FTPAccount {
 
 	/**
 	 * provides the password of the ftp account.
+	 * the password must be linux hashed password.
+	 * e.g. '$6$gCkMes6kAaTVnP9j$rdBl...S8ectusndrupAIRAdtQatY1'.
 	 *
-	 * @return string the password of the ftp account.
+	 * @return string the ftp account hashed password.
 	 */
 	public function getPassword(): string;
 

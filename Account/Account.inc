@@ -104,7 +104,7 @@ interface Account {
 	public function getMainEmailAddress():? string;
 
 	/**
-	 * provides an array of the account email accounts.
+	 * provides an array of the account's email accounts.
 	 * if $email parameter is specified the function returns an array that contains only the specified
 	 * email account information (if the email account exists),
 	 * otherwise, it returns an array of all the account email accounts information.
@@ -229,12 +229,14 @@ interface Account {
 	public function getCronJob():? string;
 
 	/**
-	 * creates a new cron job file to the account.
+	 * replaces the cron job file of the account.
+	 * the function receives the path to the account cron job file
+	 * and apply the cron jobs to the panel account.
 	 *
 	 * @param string $cronjob the path to the account cron job file.
 	 *
 	 * @return void
-	 * @throws PanelException throws if there is an issue with creating the new cron job file for the account.
+	 * @throws PanelException throws if there is an issue with replacing the cron job file for the account.
 	 */
 	public function setCronJob($cronjob);
 

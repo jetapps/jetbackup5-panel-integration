@@ -65,13 +65,11 @@ interface Panel {
 
 	/**
 	 * provides the desired account information.
-	 * the information return as Account and includes the information about the account
-	 * witch its username matches the passed $username parameter.
 	 *
 	 * @param string $username the username of the desired account.
 	 *
-	 * @return Account|null the desired account.
-	 * @throws PanelException throws if there is an issue with getting the accounts.
+	 * @return Account|null includes all the information about the desired account.
+	 * @throws PanelException throws if there is an issue with getting the account.
 	 */
 	public function getAccount($username):? Account;
 

@@ -18,7 +18,8 @@ interface Certificate {
 
 	/**
 	 * provides the panel id.
-	 * the panel id is the same panel id as in \JetBackup\Core\Panel\Integration\PanelInfo::getId().
+	 * the the panel id needs to be as follow 'namespace_name'.
+	 * e.g. 'MyCompany_PanelName'.
 	 *
 	 * @return string represents the panel.
 	 */

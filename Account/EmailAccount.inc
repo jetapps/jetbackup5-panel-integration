@@ -18,7 +18,8 @@ interface EmailAccount {
 
 	/**
 	 * provides the panel id.
-	 * the panel id is the same panel id as in \JetBackup\Core\Panel\Integration\PanelInfo::getId().
+	 * the the panel id needs to be as follow 'namespace_name'.
+	 * e.g. 'MyCompany_PanelName'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -54,8 +55,10 @@ interface EmailAccount {
 
 	/**
 	 * provides the password of the email account.
+	 * the password must be linux hashed password.
+	 * e.g. '$6$gCkMes6kAaTVnP9j$rdBl...S8ectusndrupAIRAdtQatY1'.
 	 *
-	 * @return string the password of the email account.
+	 * @return string the email account hashed password.
 	 */
 	public function getPassword(): string;
 
