@@ -39,11 +39,33 @@ interface Account {
 	public function getHomeDir(): string;
 
 	/**
+	 * @return string
+	 */
+	public function getHomeDirOwner(): string;
+
+	/**
+	 * @return string
+	 */
+	public function getHomeDirGroup(): string;
+
+	/**
+	 * @return int
+	 */
+	public function getHomeDirPermissions(): int;
+
+	/**
 	 * provides the creation time of the account.
 	 *
 	 * @return int Unix timestamp of the creation time.
 	 */
 	public function getCreated(): int;
+
+	/**
+	 * provides unique id for the account
+	 *
+	 * @return string 
+	 */
+	public function getUniqueId(): string;
 
 	/**
 	 * provides an array of directories to exclude from the user home directory.
@@ -88,6 +110,13 @@ interface Account {
 	 * @return string|null the account's package.
 	 */
 	public function getPackage():? string;
+
+	/**
+	 * provides the packages list of the account (reseller).
+	 *
+	 * @return AccountPackage[] the account's packages list.
+	 */
+	public function getPackages(): array;
 
 	/**
 	 * provides the ip address of the account.
@@ -270,6 +299,13 @@ interface Account {
 	public function isRoot(): bool;
 
 	/**
+	 * returns true if the account is login only and false otherwise.
+	 *
+	 * @return bool is the account login only or not.
+	 */
+	public function isLoginOnly(): bool;
+
+	/**
 	 * provides the custom data of the account (optional, can returns an empty string).
 	 * it includes any information that the panel needs for the account.
 	 * its an internal data of the panel, it can receives whatever the panel needs,
@@ -293,4 +329,17 @@ interface Account {
 	 * @throws PanelException throws if there is an issue with removing the account.
 	 */
 	public function remove();
+
+	/**
+	 * @param Config|null $config
+	 * @param Database[]|null $databases
+	 * @param DatabaseUser[]|null $database_users
+	 * @param EmailAccount[]|null $emails
+	 * @param Domain[]|null $domains
+	 * @param FTPAccount[]|null $ftps
+	 * @param Certificate[]|null $certificates
+	 * @param string|null $cronjob
+	 * @throws PanelException throws if there is an issue with the post restore script.
+	 */
+	public function postRestore(Config $config=null, $databases=null, $database_users=null, $emails=null, $domains=null, $ftps=null, $certificates=null, $cronjob=null);
 }

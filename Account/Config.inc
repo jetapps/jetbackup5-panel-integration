@@ -94,7 +94,21 @@ interface Config {
 	 *
 	 * @return bool is the account suspended or not.
 	 */
-	public function getSuspended(): bool;
+	public function isSuspended(): bool;
+
+	/**
+	 * returns true if the account is root and false otherwise.
+	 *
+	 * @return bool is the account root or not.
+	 */
+	public function isRoot(): bool;
+
+	/**
+	 * returns true if the account is reseller and false otherwise.
+	 *
+	 * @return bool is the account reseller or not.
+	 */
+	public function isReseller(): bool;
 
 	/**
 	 * removes configuration files.

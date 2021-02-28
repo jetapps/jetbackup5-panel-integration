@@ -13,19 +13,11 @@ namespace JetBackup\Core\Panel\Integration;
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Core\Panel\Integration\Account\Account;
 use JetBackup\Core\Panel\Integration\Account\Config;
+use JetBackup\Core\Panel\Log;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 interface Panel {
-
-	/**
-	 * Panel constructor.
-	 *
-	 * @param PanelSettings $settings holds the needed panel default settings information.
-	 *
-	 * @return Panel the new created Panel.
-	 */
-	public function __construct(PanelSettings $settings);
 
 	/**
 	 * provides the information about the panel.
@@ -97,4 +89,9 @@ interface Panel {
 	 * @return DatabaseAuth|null holds the database authentication information.
 	 */
 	public function getDatabaseAuth($engine):? DatabaseAuth;
+
+	/**
+	 * @param Log $logger
+	 */
+	public function setLogger(Log $logger);
 }

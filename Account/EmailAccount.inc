@@ -11,6 +11,7 @@
 namespace JetBackup\Core\Panel\Integration\Account;
 
 use JetBackup\Core\Exception\PanelException;
+use JetBackup\Core\Panel\Integration\Account\EmailFilter\EmailFilter;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
@@ -61,6 +62,11 @@ interface EmailAccount {
 	 * @return string the email account hashed password.
 	 */
 	public function getPassword(): string;
+
+	/**
+	 * @return EmailFilter[]
+	 */
+	public function getFilters(): array;
 
 	/**
 	 * provides the custom data of the email account (optional, can returns an empty string).
