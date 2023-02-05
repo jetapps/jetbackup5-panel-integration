@@ -12,6 +12,8 @@ namespace JetBackup\Core\Panel\Integration\Account;
 
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Core\Panel\Integration\Quota;
+use JetBackup\Core\Restore\RestoreAccount\PostRestoreData;
+use JetBackup\Core\Snapshot\SnapshotItem;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
@@ -23,6 +25,13 @@ interface Account {
 	 * @return string the account username.
 	 */
 	public function getUsername(): string;
+
+	/**
+	 * provide informative name for the account (this field is optional and can return empty string)
+	 * 
+	 * @return string the account nickname
+	 */
+	public function getNickname(): string;
 
 	/**
 	 * provides the main domain of the account.
@@ -39,17 +48,23 @@ interface Account {
 	public function getHomeDir(): string;
 
 	/**
-	 * @return string
+	 * provide the account homedir folder owner
+	 * 
+	 * @return string the account homedir folder owner
 	 */
 	public function getHomeDirOwner(): string;
 
 	/**
-	 * @return string
+	 * provide the account homedir folder group
+	 * 
+	 * @return string the account homedir folder group
 	 */
 	public function getHomeDirGroup(): string;
 
 	/**
-	 * @return int
+	 * provide the homedir folder permissions (e.g. 0751)
+	 * 
+	 * @return int the homedir folder permissions
 	 */
 	public function getHomeDirPermissions(): int;
 
@@ -68,9 +83,10 @@ interface Account {
 	public function getUniqueId(): string;
 
 	/**
-	 * provides an array of directories to exclude from the user home directory.
+	 * provides an array of directories to exclude from the user home directory (in rsync format).
 	 * everything that the panel stores in the user home directory and is not a part of
 	 * the user home directory, for example mail folder.
+	 * e.g. `["/imap/***","/.cagefs/***"]`
 	 *
 	 * @return array array of directories to exclude from the user home directory.
 	 */
@@ -107,9 +123,9 @@ interface Account {
 	/**
 	 * provides the package of the account.
 	 *
-	 * @return string|null the account's package.
+	 * @return Package the account's package.
 	 */
-	public function getPackage():? string;
+	public function getPackage(): Package;
 
 	/**
 	 * provides the packages list of the account (reseller).
@@ -306,9 +322,9 @@ interface Account {
 	public function isLoginOnly(): bool;
 
 	/**
-	 * provides the custom data of the account (optional, can returns an empty string).
+	 * provides the custom data of the account (optional, can return an empty string).
 	 * it includes any information that the panel needs for the account.
-	 * its an internal data of the panel, it can receives whatever the panel needs,
+	 * it's an internal data of the panel, it can receive whatever the panel needs,
 	 * the data will be backed up and restored as is.
 	 *
 	 * @return string the custom data of the account.
@@ -331,15 +347,18 @@ interface Account {
 	public function remove();
 
 	/**
-	 * @param Config|null $config
-	 * @param Database[]|null $databases
-	 * @param DatabaseUser[]|null $database_users
-	 * @param EmailAccount[]|null $emails
-	 * @param Domain[]|null $domains
-	 * @param FTPAccount[]|null $ftps
-	 * @param Certificate[]|null $certificates
-	 * @param string|null $cronjob
+	 * preformed before each restore
+	 * 
+	 * @param SnapshotItem[] $items
 	 * @throws PanelException throws if there is an issue with the post restore script.
 	 */
-	public function postRestore(Config $config=null, $databases=null, $database_users=null, $emails=null, $domains=null, $ftps=null, $certificates=null, $cronjob=null);
+	public function preRestore();
+
+	/**
+	 * preformed after each restore
+	 * 
+	 * @param PostRestoreData $data
+	 * @throws PanelException throws if there is an issue with the post restore script.
+	 */
+	public function postRestore(PostRestoreData $data);
 }

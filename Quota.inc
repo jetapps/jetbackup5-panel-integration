@@ -14,6 +14,8 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 interface Quota {
 
+	const UNLIMITED = -1;
+	
 	/**
 	 * provides the disk usage quota.
 	 *

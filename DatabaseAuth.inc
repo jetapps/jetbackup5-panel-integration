@@ -49,4 +49,25 @@ interface DatabaseAuth {
 	 * @return string the authentication database.
 	 */
 	public function getAuthDatabase(): string;
+
+	/**
+	 * provides the database socket to connect to.
+	 * 
+	 * @return string|null
+	 */
+	public function getSocket():? string;
+
+	/**
+	 * provides the database engine lib directory.
+	 * 
+	 * @return string
+	 */
+	public function getLibDir(): string;
+
+	/**
+	 * returns true if the database is stored locally and false otherwise.
+	 * 
+	 * @return bool
+	 */
+	public function isLocal(): bool;
 }

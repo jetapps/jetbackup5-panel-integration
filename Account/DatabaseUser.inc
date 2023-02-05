@@ -18,8 +18,8 @@ interface DatabaseUser {
 
 	/**
 	 * provides the panel id.
-	 * the the panel id needs to be as follow 'namespace_name'.
-	 * e.g. 'MyCompany_PanelName'.
+	 * the panel id needs to be as follows 'MyCompany_PanelName'.
+	 * e.g. 'JetApps_cPanel'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -28,7 +28,7 @@ interface DatabaseUser {
 	/**
 	 * provides the name of the database user.
 	 *
-	 * @return string|null the database user name.
+	 * @return string|null the database username.
 	 */
 	public function getName():? string;
 
@@ -60,9 +60,9 @@ interface DatabaseUser {
 	public function getPrivileges(): array;
 
 	/**
-	 * provides the custom data of the database user (optional, can returns an empty string).
+	 * provides the custom data of the database user (optional, can return an empty string).
 	 * it includes any information that the panel needs for the database user.
-	 * its an internal data of the panel, it can receives whatever the panel needs,
+	 * it's an internal data of the panel, it can receive whatever the panel needs,
 	 * the data will be backed up and restored as is.
 	 *
 	 * @return string the custom data of the database user.

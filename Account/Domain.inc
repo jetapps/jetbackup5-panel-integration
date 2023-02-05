@@ -32,7 +32,7 @@ interface Domain {
 	 */
 	const TYPE_ADDON_DOMAIN = 2;
 	/**
-	 * a sub domain type.
+	 * a subdomain type.
 	 * a subdomain is a subset of an existing larger domain (main/addon domain).
 	 * @var int
 	 */
@@ -46,8 +46,8 @@ interface Domain {
 
 	/**
 	 * provides the panel id.
-	 * the the panel id needs to be as follow 'namespace_name'.
-	 * e.g. 'MyCompany_PanelName'.
+	 * the panel id needs to be as follows 'MyCompany_PanelName'.
+	 * e.g. 'JetApps_cPanel'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -72,17 +72,24 @@ interface Domain {
 	 *
 	 * @return int the domain type (see @uses for available domain types).
 	 *
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Domain::TYPE_MAIN_DOMAIN main domain type.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Domain::TYPE_ADDON_DOMAIN addon domain type.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Domain::TYPE_SUBDOMAIN sub domain type.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Domain::TYPE_ALIAS alias domain type.
+	 * @uses Domain::TYPE_MAIN_DOMAIN main domain type.
+	 * @uses Domain::TYPE_ADDON_DOMAIN addon domain type.
+	 * @uses Domain::TYPE_SUBDOMAIN subdomain type.
+	 * @uses Domain::TYPE_ALIAS alias domain type.
 	 */
 	public function getType(): int;
 
 	/**
+	 * provides the account IP
+	 * 
+	 * @return string|null
+	 */
+	public function getIPAddress():? string;
+
+	/**
 	 * provides the parent domain of the domain.
 	 *
-	 * @return Domain the parent domain of this domain.
+	 * @return null|Domain the parent domain of this domain.
 	 * @throws PanelException
 	 */
 	public function getParent():? Domain;
@@ -90,14 +97,21 @@ interface Domain {
 	/**
 	 * provides the path to the zone file of the domain.
 	 *
-	 * @return string the path to the zone file of the domain.
+	 * @return null|string the path to the zone file of the domain.
 	 */
 	public function getZoneFile():? string;
 
 	/**
-	 * provides the custom data of the domain (optional, can returns an empty string).
+	 * provides the domain php details
+	 * 
+	 * @return PHPDetails|null
+	 */
+	public function getPHPDetails():? PHPDetails;
+
+	/**
+	 * provides the custom data of the domain (optional, can return an empty string).
 	 * it includes any information that the panel needs for the domain.
-	 * its an internal data of the panel, it can receives whatever the panel needs,
+	 * it's an internal data of the panel, it can receive whatever the panel needs,
 	 * the data will be backed up and restored as is.
 	 *
 	 * @return string the custom data of the domain.

@@ -68,7 +68,7 @@ interface Panel {
 	/**
 	 * creates new account.
 	 * if there is already an existing account with that username,
-	 * the function will updates the account data.
+	 * the function will update the account data.
 	 *
 	 * @param string $username the username for the new account.
 	 * @param Config $config the needed config for the new account creation.
@@ -86,6 +86,7 @@ interface Panel {
 	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
 	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
 	 *
+	 * @throws PanelException
 	 * @return DatabaseAuth|null holds the database authentication information.
 	 */
 	public function getDatabaseAuth($engine):? DatabaseAuth;

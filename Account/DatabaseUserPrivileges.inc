@@ -23,8 +23,9 @@ interface DatabaseUserPrivileges {
 
 	/**
 	 * provides the database user grants.
+	 * e.g. ["INSERT","UPDATE","SELECT"]
 	 *
-	 * @return array an array with all of the database user grants.
+	 * @return array an array with all the database user grants.
 	 */
 	public function getGrants(): array;
 }

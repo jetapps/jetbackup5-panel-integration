@@ -16,8 +16,8 @@ interface PanelInfo {
 
 	/**
 	 * provides the panel id.
-	 * the the panel id needs to be as follow 'namespace_name'.
-	 * e.g. 'MyCompany_PanelName'.
+	 * the panel id needs to be as follows 'MyCompany_PanelName'.
+	 * e.g. 'JetApps_cPanel'.
 	 *
 	 * @return string the panel id.
 	 */
@@ -41,7 +41,7 @@ interface PanelInfo {
 
 	/**
 	 * provides the panel current tier.
-	 * e.g. 'STABLE', 'BETA' or 'EDGE'.
+	 * e.g. 'STABLE', 'BETA', 'EDGE' or 'ALPHA'.
 	 *
 	 * @return string the panel current tier
 	 */

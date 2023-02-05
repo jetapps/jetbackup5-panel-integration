@@ -11,6 +11,7 @@
 namespace JetBackup\Core\Panel\Integration\Account;
 
 use JetBackup\Core\Exception\PanelException;
+use JetBackup\Core\Panel\Integration\DatabaseAuth;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
@@ -49,8 +50,8 @@ interface Database {
 
 	/**
 	 * provides the panel id.
-	 * the the panel id needs to be as follow 'namespace_name'.
-	 * e.g. 'MyCompany_PanelName'.
+	 * the panel id needs to be as follows 'MyCompany_PanelName'.
+	 * e.g. 'JetApps_cPanel'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -75,14 +76,19 @@ interface Database {
 	public function getEngine(): int;
 
 	/**
-	 * provides the custom data of the database (optional, can returns an empty string).
+	 * provides the custom data of the database (optional, can return an empty string).
 	 * it includes any information that the panel needs for the database.
-	 * its an internal data of the panel, it can receives whatever the panel needs,
+	 * it's an internal data of the panel, it can receive whatever the panel needs,
 	 * the data will be backed up and restored as is.
 	 *
 	 * @return string the custom data of the database.
 	 */
 	public function getCustomData(): string;
+
+	/**
+	 * @return DatabaseAuth|null
+	 */
+	public function getAuth():? DatabaseAuth;
 
 	/**
 	 * removes the database.

@@ -19,8 +19,8 @@ interface EmailAccount {
 
 	/**
 	 * provides the panel id.
-	 * the the panel id needs to be as follow 'namespace_name'.
-	 * e.g. 'MyCompany_PanelName'.
+	 * the panel id needs to be as follows 'MyCompany_PanelName'.
+	 * e.g. 'JetApps_cPanel'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -48,9 +48,9 @@ interface EmailAccount {
 	public function getQuota(): int;
 
 	/**
-	 * provides the send limit of the email account.
+	 * provides the "send limit" of the email account.
 	 *
-	 * @return int the send limit of the email account.
+	 * @return int the "send limit" of the email account.
 	 */
 	public function getSendLimit(): int;
 
@@ -69,9 +69,9 @@ interface EmailAccount {
 	public function getFilters(): array;
 
 	/**
-	 * provides the custom data of the email account (optional, can returns an empty string).
+	 * provides the custom data of the email account (optional, can return an empty string).
 	 * it includes any information that the panel needs for the email account.
-	 * its an internal data of the panel, it can receives whatever the panel needs,
+	 * it's an internal data of the panel, it can receive whatever the panel needs,
 	 * the data will be backed up and restored as is.
 	 *
 	 * @return string the custom data of the email account.

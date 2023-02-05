@@ -18,8 +18,8 @@ interface Config {
 
 	/**
 	 * provides the panel id.
-	 * the the panel id needs to be as follow 'namespace_name'.
-	 * e.g. 'MyCompany_PanelName'.
+	 * the panel id needs to be as follows 'MyCompany_PanelName'.
+	 * e.g. 'JetApps_cPanel'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -61,9 +61,9 @@ interface Config {
 	/**
 	 * provides the package of the account.
 	 *
-	 * @return string|null the account package.
+	 * @return Package the account package.
 	 */
-	public function getPackage():? string;
+	public function getPackage(): Package;
 
 	/**
 	 * provides the owner of the account.
@@ -95,6 +95,13 @@ interface Config {
 	 * @return bool is the account suspended or not.
 	 */
 	public function isSuspended(): bool;
+
+	/**
+	 * returns true if the account was suspended in the backup and false otherwise.
+	 *
+	 * @return bool is the account suspended or not.
+	 */
+	public function isSuspendedReal(): bool;
 
 	/**
 	 * returns true if the account is root and false otherwise.

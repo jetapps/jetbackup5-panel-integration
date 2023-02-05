@@ -18,8 +18,8 @@ interface FTPAccount {
 
 	/**
 	 * provides the panel id.
-	 * the the panel id needs to be as follow 'namespace_name'.
-	 * e.g. 'MyCompany_PanelName'.
+	 * the panel id needs to be as follows 'MyCompany_PanelName'.
+	 * e.g. 'JetApps_cPanel'.
 	 *
 	 * @return string represents the panel.
 	 */
@@ -56,9 +56,9 @@ interface FTPAccount {
 	public function getPath(): string;
 
 	/**
-	 * provides the custom data of the ftp account (optional, can returns an empty string).
+	 * provides the custom data of the ftp account (optional, can return an empty string).
 	 * it includes any information that the panel needs for the ftp account.
-	 * its an internal data of the panel, it can receives whatever the panel needs,
+	 * it's an internal data of the panel, it can receive whatever the panel needs,
 	 * the data will be backed up and restored as is.
 	 *
 	 * @return string the custom data of the ftp account.
