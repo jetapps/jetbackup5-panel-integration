@@ -13,7 +13,6 @@ namespace JetBackup\Core\Panel\Integration\Account;
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Core\Panel\Integration\Quota;
 use JetBackup\Core\Restore\RestoreAccount\PostRestoreData;
-use JetBackup\Core\Snapshot\SnapshotItem;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
@@ -349,7 +348,6 @@ interface Account {
 	/**
 	 * preformed before each restore
 	 * 
-	 * @param SnapshotItem[] $items
 	 * @throws PanelException throws if there is an issue with the post restore script.
 	 */
 	public function preRestore();
