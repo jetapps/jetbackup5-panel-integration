@@ -10,9 +10,11 @@
 **/
 namespace JetBackup\Panel\Account\EmailFilter;
 
+use JetBackup\Core\Panel\Integration\Account\EmailFilter\Action as iAction;
+
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class Action implements \JetBackup\Core\Panel\Integration\Account\EmailFilter\Action {
+class Action implements iAction {
 	
 	/**
 	 * @return int

@@ -10,9 +10,11 @@
 **/
 namespace JetBackup\Panel\Account\EmailFilter;
 
+use JetBackup\Core\Panel\Integration\Account\EmailFilter\Rule as iRule;
+
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class Rule implements \JetBackup\Core\Panel\Integration\Account\EmailFilter\Rule {
+class Rule implements iRule {
 	
 	/**
 	 * @return int

@@ -44,4 +44,10 @@ class PanelConfig implements \JetBackup\Core\Panel\Integration\PanelConfig {
 		$this->_data = parse_ini_file(JetBackup::PANEL_CONFIG_FILE, false, INI_SCANNER_RAW);
 	}
 
+	/**
+	 * validates the inputted data while saving the form
+	 * 
+	 * @return void
+	 */
+	public function validateFields(): void {}
 }

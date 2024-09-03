@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection GrazieInspection */
+
 /*
 *
 * JetBackup @ package
@@ -14,7 +15,7 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 interface Package {
 
-	const UNLIMITED = -1;
+	const int UNLIMITED = -1;
 
 	/**
 	 * provide the package name

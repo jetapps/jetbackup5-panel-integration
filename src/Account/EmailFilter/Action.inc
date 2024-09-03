@@ -10,25 +10,23 @@
 **/
 namespace JetBackup\Core\Panel\Integration\Account\EmailFilter;
 
-use JetBackup\Core\Exception\PanelException;
-
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 interface Action {
 
-	const ACTION_DELIVER    = 1;
-	const ACTION_FAIL       = 2;
-	const ACTION_FINISH     = 3;
-	const ACTION_SAVE       = 4;
-	const ACTION_PIPE       = 5;
+	const int ACTION_DELIVER    = 1;
+	const int ACTION_FAIL       = 2;
+	const int ACTION_FINISH     = 3;
+	const int ACTION_SAVE       = 4;
+	const int ACTION_PIPE       = 5;
 
 	/**
 	 * @return int
 	 */
-	public function getAction(): int;
+	public function getAction():int;
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
-	public function getValue():? string;
+	public function getValue():string|null;
 }

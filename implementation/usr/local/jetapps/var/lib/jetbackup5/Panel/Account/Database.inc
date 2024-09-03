@@ -13,10 +13,11 @@ namespace JetBackup\Panel\Account;
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Core\Panel\Integration\DatabaseAuth;
 use JetBackup\Panel\Panel;
+use JetBackup\Core\Panel\Integration\Account\Database as iDatabase;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class Database implements \JetBackup\Core\Panel\Integration\Account\Database {
+class Database implements iDatabase {
 
 	/**
 	 * provides the panel id.
@@ -39,11 +40,30 @@ class Database implements \JetBackup\Core\Panel\Integration\Account\Database {
 	 *
 	 * @return int the database engine (see @uses for available engine types).
 	 *
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
+	 * @uses iDatabase::ENGINE_MYSQL mysql database engine.
+	 * @uses iDatabase::ENGINE_MONGODB mogodb database engine.
+	 * @uses iDatabase::ENGINE_POSTGRESQL postgresql database engine.
 	 */
 	public function getEngine(): int { return self::ENGINE_MYSQL; }
+
+	/**
+	 * provides the engine name of the database.
+	 *
+	 * @return int the database engine name (see @uses for available engine types).
+	 * 
+	 * @uses iDatabase::ENGINE_NAME_MYSQL mysql database engine name.
+	 * @uses iDatabase::ENGINE_NAME_MARIADB mariadb database engine name.
+	 * @uses iDatabase::ENGINE_NAME_MONGODB mongodb database engine name.
+	 * @uses iDatabase::ENGINE_NAME_POSTGRESQL postgresql database engine name.
+	 */
+	public function getEngineName(): int { return self::ENGINE_NAME_MYSQL; }
+
+	/**
+	 * provides the engine version of the database.
+	 * 
+	 * @return string the engine version
+	 */
+	public function getEngineVersion(): string { return '5.8'; }
 
 	/**
 	 * provides the custom data of the database (optional, can return an empty string).
@@ -77,5 +97,5 @@ class Database implements \JetBackup\Core\Panel\Integration\Account\Database {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the database.
 	 */
-	public function remove() {}
+	public function remove():void {}
 }

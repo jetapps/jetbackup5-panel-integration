@@ -13,10 +13,11 @@ namespace JetBackup\Panel\Account;
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Core\Panel\Integration\Account\EmailFilter\EmailFilter;
 use JetBackup\Panel\Panel;
+use JetBackup\Core\Panel\Integration\Account\EmailAccount as iEmailAccount;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class EmailAccount implements \JetBackup\Core\Panel\Integration\Account\EmailAccount {
+class EmailAccount implements iEmailAccount {
 
 	/**
 	 * provides the panel id.
@@ -87,5 +88,5 @@ class EmailAccount implements \JetBackup\Core\Panel\Integration\Account\EmailAcc
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the email account.
 	 */
-	public function remove() {}
+	public function remove():void {}
 }

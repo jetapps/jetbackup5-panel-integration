@@ -33,14 +33,14 @@ interface Config {
 	 * @return string|null the path for the config files.
 	 * @throws PanelException throws if there is an issue with getting the path.
 	 */
-	public function getPath():? string;
+	public function getPath():string|null;
 
 	/**
 	 * provides the main domain of the account.
 	 *
 	 * @return string|null the account main domain.
 	 */
-	public function getMainDomain():? string;
+	public function getMainDomain():string|null;
 
 	/**
 	 * provides the password of the account.
@@ -49,14 +49,14 @@ interface Config {
 	 *
 	 * @return string|null the account hashed password.
 	 */
-	public function getPassword():? string;
+	public function getPassword():string|null;
 
 	/**
-	 * provides the ip address of the account.
+	 * provides the ip addresses of the account.
 	 *
-	 * @return string|null the account ip address.
+	 * @return IPAddress[] the account ip addresses.
 	 */
-	public function getIPAddress():? string;
+	public function getIPAddresses(): array;
 
 	/**
 	 * provides the package of the account.
@@ -70,12 +70,12 @@ interface Config {
 	 *
 	 * @return string|null the account owner.
 	 */
-	public function getOwner():? string;
+	public function getOwner():string|null;
 
 	/**
-	 * provides the custom data of the account (optional, can returns an empty string).
+	 * provides the custom data of the account (optional, can return an empty string).
 	 * it includes any information that the panel needs for the account.
-	 * its an internal data of the panel, it can receives whatever the panel needs,
+	 * it's an internal data of the panel, it can receive whatever the panel needs,
 	 * the data will be backed up and restored as is.
 	 *
 	 * @return string the account custom data.
@@ -87,7 +87,7 @@ interface Config {
 	 *
 	 * @return string|null the account email address.
 	 */
-	public function getEmailAddress():? string;
+	public function getEmailAddress():string|null;
 
 	/**
 	 * returns true if the account is suspended and false otherwise.
@@ -118,6 +118,13 @@ interface Config {
 	public function isReseller(): bool;
 
 	/**
+	 * returns true if the account is virtual and false otherwise.
+	 *
+	 * @return bool is the account virtual or not.
+	 */
+	public function isVirtual(): bool;
+
+	/**
 	 * removes configuration files.
 	 * removes any temporary configuration files that might have been created
 	 * in an earlier stage by the 'getPath' function (optional).
@@ -125,5 +132,5 @@ interface Config {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the configuration files.
 	 */
-	public function remove();
+	public function remove():void;
 }

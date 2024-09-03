@@ -11,8 +11,10 @@
 namespace JetBackup\Panel\Account;
 
 use JetBackup\Core\Exception\PanelException;
+use JetBackup\Core\Panel\Integration\Account\IPAddress;
 use JetBackup\Core\Panel\Integration\Account\PHPDetails;
 use JetBackup\Panel\Panel;
+use JetBackup\Core\Panel\Integration\Account\Domain as iDomain;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
@@ -46,12 +48,14 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	 *
 	 * @return int the domain type (see @uses for available domain types).
 	 *
-	 * @uses Domain::TYPE_MAIN_DOMAIN main domain type.
-	 * @uses Domain::TYPE_ADDON_DOMAIN addon domain type.
-	 * @uses Domain::TYPE_SUBDOMAIN subdomain type.
-	 * @uses Domain::TYPE_ALIAS alias domain type.
+	 * @uses iDomain::TYPE_MAIN_DOMAIN main domain type.
+	 * @uses iDomain::TYPE_ADDON_DOMAIN addon domain type.
+	 * @uses iDomain::TYPE_SUBDOMAIN subdomain type.
+	 * @uses iDomain::TYPE_ALIAS alias domain type.
+	 * @uses iDomain::TYPE_DNS_ONLY DNS only domain type.
+	 * @uses iDomain::TYPE_REDIRECT redirect domain type.
 	 */
-	public function getType(): int { return self::TYPE_MAIN_DOMAIN; }
+	public function getType(): int { return iDomain::TYPE_MAIN_DOMAIN; }
 
 	/**
 	 * provides the account IP
@@ -63,24 +67,24 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	/**
 	 * provides the parent domain of the domain.
 	 *
-	 * @return null|Domain the parent domain of this domain.
+	 * @return iDomain|null the parent domain of this domain.
 	 * @throws PanelException
 	 */
-	public function getParent():? \JetBackup\Core\Panel\Integration\Account\Domain { return null; }
+	public function getParent():iDomain|null { return null; }
 
 	/**
 	 * provides the path to the zone file of the domain.
 	 *
 	 * @return null|string the path to the zone file of the domain.
 	 */
-	public function getZoneFile():? string { return '/var/named/acct1.com.db'; }
+	public function getZoneFile():string|null { return '/var/named/acct1.com.db'; }
 
 	/**
 	 * provides the domain php details
 	 * 
 	 * @return PHPDetails|null
 	 */
-	public function getPHPDetails():? PHPDetails {
+	public function getPHPDetails():PHPDetails|null {
 		return new class implements PHPDetails {
 			public function getVersion(): ?int { return self::VERSION_81; }
 			public function getHandler(): ?int { return self::HANDLER_FCGI; }
@@ -108,5 +112,32 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the domain.
 	 */
-	public function remove($remove_data=false) {}
+	public function remove(bool $remove_data=false):void {}
+
+	/**
+	 * return the domain IP addresses
+	 *
+	 * @return IPAddress[]
+	 */
+	public function getIPAddresses(): array {
+		return [new class implements IPAddress {
+			public function getIP(): string { return '8.8.8.8'; }
+			public function isMain(): bool { return true; }
+			public function getType(): int { return self::TYPE_IPV4; }
+		}];
+	}
+
+	/**
+	 * returns the redirect URL when domain type is iDomain::TYPE_REDIRECT
+	 * 
+	 * @return string|null
+	 */
+	public function getRedirectURL(): string|null { return 'https://google.com'; }
+
+	/**
+	 * returns the redirect code when domain type is iDomain::TYPE_REDIRECT
+	 * 
+	 * @return int|null
+	 */
+	public function getRedirectCode(): int|null { return 301; }
 }

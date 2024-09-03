@@ -14,20 +14,20 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 interface AccountPackage {
 
-	const TYPE_USER         = 1;
-	const TYPE_RESELLER     = 2;
+	const int TYPE_USER         = 1;
+	const int TYPE_RESELLER     = 2;
 
 	/**
 	 * provides the name of the package.
 	 *
 	 * @return string the package name.
 	 */
-	public function getName(): string;
+	public function getName():string;
 
 	/**
 	 * provides the package type.
 	 *
-	 * @return int the package type.
+	 * @return int|null the package type.
 	 */
-	public function getType():? int;
+	public function getType():int|null;
 }

@@ -10,9 +10,11 @@
 **/
 namespace JetBackup\Panel\Account;
 
+use JetBackup\Core\Panel\Integration\Account\DatabaseUserPrivileges as iDatabaseUserPrivileges;
+
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class DatabaseUserPrivileges implements \JetBackup\Core\Panel\Integration\Account\DatabaseUserPrivileges {
+class DatabaseUserPrivileges implements iDatabaseUserPrivileges {
 
 	/**
 	 * provides the database name.

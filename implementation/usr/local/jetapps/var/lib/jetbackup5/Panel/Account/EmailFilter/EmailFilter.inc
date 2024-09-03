@@ -10,9 +10,11 @@
 **/
 namespace JetBackup\Panel\Account\EmailFilter;
 
+use JetBackup\Core\Panel\Integration\Account\EmailFilter\EmailFilter as iEmailFilter;
+
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class EmailFilter implements \JetBackup\Core\Panel\Integration\Account\EmailFilter\EmailFilter {
+class EmailFilter implements iEmailFilter {
 
 	/**
 	 * provides the name of the email account.

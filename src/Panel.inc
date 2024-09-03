@@ -13,6 +13,7 @@ namespace JetBackup\Core\Panel\Integration;
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Core\Panel\Integration\Account\Account;
 use JetBackup\Core\Panel\Integration\Account\Config;
+use JetBackup\Core\Panel\Integration\Account\Database;
 use JetBackup\Core\Panel\Log;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
@@ -53,7 +54,7 @@ interface Panel {
 	 * @return Account[] an array of the panel Account.
 	 * @throws PanelException throws if there is an issue with getting the accounts in the panel.
 	 */
-	public function listAccounts($limit=0, $page=0): array;
+	public function listAccounts(int $limit=0, int $page=0): array;
 
 	/**
 	 * provides the desired account information.
@@ -63,7 +64,7 @@ interface Panel {
 	 * @return Account|null includes all the information about the desired account.
 	 * @throws PanelException throws if there is an issue with getting the account.
 	 */
-	public function getAccount($username):? Account;
+	public function getAccount(string $username):Account|null;
 
 	/**
 	 * creates new account.
@@ -76,20 +77,20 @@ interface Panel {
 	 * @return Account the new added account.
 	 * @throws PanelException throws if there is an issue with creating the accounts.
 	 */
-	public function createAccount($username, Config $config): Account;
+	public function createAccount(string $username, Config $config): Account;
 
 	/**
 	 * provides the database authentication information.
 	 *
 	 * @param int $engine the database engine (see @uses for available engine types).
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
+	 * @uses Database::ENGINE_MYSQL mysql database engine.
+	 * @uses Database::ENGINE_MONGODB mogodb database engine.
+	 * @uses Database::ENGINE_POSTGRESQL postgresql database engine.
 	 *
 	 * @throws PanelException
 	 * @return DatabaseAuth|null holds the database authentication information.
 	 */
-	public function getDatabaseAuth($engine):? DatabaseAuth;
+	public function getDatabaseAuth(int $engine):DatabaseAuth|null;
 
 	/**
 	 * @param Log $logger

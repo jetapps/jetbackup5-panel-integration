@@ -10,8 +10,6 @@
 **/
 namespace JetBackup\Core\Panel\Integration\Account\EmailFilter;
 
-use JetBackup\Core\Exception\PanelException;
-
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 interface EmailFilter {

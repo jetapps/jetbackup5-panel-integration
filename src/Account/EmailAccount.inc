@@ -84,5 +84,5 @@ interface EmailAccount {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the email account.
 	 */
-	public function remove();
+	public function remove():void;
 }

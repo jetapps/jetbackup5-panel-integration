@@ -11,12 +11,14 @@
 namespace JetBackup\Panel\Account;
 
 use JetBackup\Core\Exception\PanelException;
+use JetBackup\Core\Panel\Integration\Account\IPAddress;
 use JetBackup\Core\Panel\Integration\Account\Package;
 use JetBackup\Panel\Panel;
+use JetBackup\Core\Panel\Integration\Account\Config as iConfig;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class Config implements \JetBackup\Core\Panel\Integration\Account\Config {
+class Config implements iConfig {
 
 	/**
 	 * provides the panel id.
@@ -140,6 +142,26 @@ class Config implements \JetBackup\Core\Panel\Integration\Account\Config {
 	public function isReseller(): bool { return false; }
 
 	/**
+	 * return the account IP addresses
+	 *
+	 * @return IPAddress[]
+	 */
+	public function getIPAddresses(): array {
+		return [new class implements IPAddress {
+			public function getIP(): string { return '8.8.8.8'; }
+			public function isMain(): bool { return true; }
+			public function getType(): int { return self::TYPE_IPV4; }
+		}];
+	}
+
+	/**
+	 * returns true if the account is virtual account (not a linux user) and false otherwise.
+	 *
+	 * @return bool
+	 */
+	public function isVirtual(): bool { return false; }
+
+	/**
 	 * removes configuration files.
 	 * removes any temporary configuration files that might have been created
 	 * in an earlier stage by the 'getPath' function (optional).
@@ -147,5 +169,5 @@ class Config implements \JetBackup\Core\Panel\Integration\Account\Config {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the configuration files.
 	 */
-	public function remove() {}
+	public function remove():void {}
 }

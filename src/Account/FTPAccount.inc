@@ -71,5 +71,5 @@ interface FTPAccount {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the ftp account.
 	 */
-	public function remove();
+	public function remove():void;
 }

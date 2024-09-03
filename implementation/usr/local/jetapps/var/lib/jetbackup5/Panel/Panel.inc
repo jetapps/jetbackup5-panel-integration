@@ -15,20 +15,27 @@ use JetBackup\Core\Panel\Integration\Account\Account;
 use JetBackup\Core\Panel\Integration\Account\Config;
 use JetBackup\Core\Panel\Integration\DatabaseAuth;
 use JetBackup\Core\Panel\Log;
+use JetBackup\Core\Panel\Integration\Panel as iPanel;
+use JetBackup\Core\Panel\Integration\PanelInfo as iPanelInfo;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class Panel implements \JetBackup\Core\Panel\Integration\Panel {
+class Panel implements iPanel {
 
-	public static function _getId(): string { return 'JetApps_cPanel'; }
+	/**
+	 * returns unique panel id
+	 * 
+	 * @return string
+	 */
+	public static function _getId(): string { return 'CompanyName_MyPanelName'; }
 
 	/**
 	 * provides the information about the panel.
 	 * the information return as PanelInfo and includes the panel id, name, version and tier.
 	 *
-	 * @return PanelInfo holds all the needed information about the panel.
+	 * @return iPanelInfo holds all the needed information about the panel.
 	 */
-	public function getInfo(): \JetBackup\Core\Panel\Integration\PanelInfo { return new PanelInfo(); }
+	public function getInfo():iPanelInfo { return new PanelInfo(); }
 
 	/**
 	 * provides the path to the public directory.

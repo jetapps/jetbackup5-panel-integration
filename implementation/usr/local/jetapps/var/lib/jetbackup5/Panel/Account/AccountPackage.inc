@@ -10,9 +10,11 @@
 **/
 namespace JetBackup\Panel\Account;
 
+use JetBackup\Core\Panel\Integration\Account\AccountPackage as iAccountPackage;
+
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class AccountPackage implements \JetBackup\Core\Panel\Integration\Account\AccountPackage {
+class AccountPackage implements iAccountPackage {
 
 	private $_name;
 	private $_type;

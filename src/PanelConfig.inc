@@ -10,11 +10,13 @@
 **/
 namespace JetBackup\Core\Panel\Integration;
 
+use JetBackup\Core\Exception\ValidationException;
+
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 interface PanelConfig {
 
-	const PROTECTED_FIELD = 'JB|HIDDEN|********************';
+	const string PROTECTED_FIELD = 'JB|HIDDEN|********************';
 
 	/**
 	 * @return array
@@ -25,4 +27,10 @@ interface PanelConfig {
 	 * @return array
 	 */
 	public function getProtectedFields(): array;
+
+	/**
+	 * @return void
+	 * @throws ValidationException
+	 */
+	public function validateFields(): void;
 }

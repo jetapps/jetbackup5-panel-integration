@@ -110,14 +110,14 @@ interface Account {
 	 *
 	 * @return Config|null holds all the needed configurations for the account creation.
 	 */
-	public function getPanelConfig():? Config;
+	public function getPanelConfig():Config|null;
 
 	/**
 	 * provides the owner of the account.
 	 *
 	 * @return string|null the account owner.
 	 */
-	public function getOwner():? string;
+	public function getOwner():string|null;
 
 	/**
 	 * provides the package of the account.
@@ -134,18 +134,18 @@ interface Account {
 	public function getPackages(): array;
 
 	/**
-	 * provides the ip address of the account.
-	 *
-	 * @return string|null the account ip address.
+	 * provides the ip addresses of the account.
+	 * 
+	 * @return IPAddress[]
 	 */
-	public function getIPAddress():? string;
+	public function getIPAddresses(): array;
 
 	/**
 	 * provides the main email address of the account.
 	 *
 	 * @return string|null the account main email address.
 	 */
-	public function getMainEmailAddress():? string;
+	public function getMainEmailAddress():string|null;
 
 	/**
 	 * provides an array of the account's email accounts.
@@ -153,11 +153,11 @@ interface Account {
 	 * email account information (if the email account exists),
 	 * otherwise, it returns an array of all the account email accounts information.
 	 *
-	 * @param string $email the desired email account.
+	 * @param string|null $email the desired email account.
 	 *
 	 * @return EmailAccount[] an array of EmailAccount - holds all the needed information about the email account.
 	 */
-	public function getEmailAccounts($email=null): array;
+	public function getEmailAccounts(string|null $email=null): array;
 
 	/**
 	 * adds a new email account for the account.
@@ -167,7 +167,7 @@ interface Account {
 	 * @return EmailAccount|null the new added email account.
 	 * @throws PanelException throws if there is an issue with adding the new email account for the account.
 	 */
-	public function addEmailAccount(EmailAccount $account):? EmailAccount;
+	public function addEmailAccount(EmailAccount $account):EmailAccount|null;
 
 	/**
 	 * provides an array of the account domains.
@@ -175,11 +175,11 @@ interface Account {
 	 * domain information (if the domain exists),
 	 * otherwise, it provides an array of all the account domains information.
 	 *
-	 * @param string $domain the desired domain.
+	 * @param string|null $domain the desired domain.
 	 *
 	 * @return Domain[] an array of Domain - holds all the information about the account domains.
 	 */
-	public function getDomains($domain=null): array;
+	public function getDomains(string|null $domain=null): array;
 
 	/**
 	 * adds a new domain for the account.
@@ -189,7 +189,7 @@ interface Account {
 	 * @return Domain|null the new added domain.
 	 * @throws PanelException throws if there is an issue with adding the new domain for the account.
 	 */
-	public function addDomain(Domain $domain):? Domain;
+	public function addDomain(Domain $domain):Domain|null;
 
 	/**
 	 * provides an array of the account databases.
@@ -198,14 +198,14 @@ interface Account {
 	 * otherwise, it provides an array of all the account databases information.
 	 *
 	 * @param int $db_engine the database engine (see @uses for available engine types).
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
-	 * @param string $database the desired database name.
+	 * @param string|null $database the desired database name.
 	 *
 	 * @return Database[] array of Database - holds all the information about the database.
+	 * @uses Database::ENGINE_POSTGRESQL postgresql database engine.
+	 * @uses Database::ENGINE_MYSQL mysql database engine.
+	 * @uses Database::ENGINE_MONGODB mogodb database engine.
 	 */
-	public function getDatabases($db_engine, $database=null): array;
+	public function getDatabases(int $db_engine, string|null $database=null): array;
 
 	/**
 	 * adds a new database for the account.
@@ -215,7 +215,7 @@ interface Account {
 	 * @return Database|null the new added database.
 	 * @throws PanelException throws if there is an issue with adding the new database for the account.
 	 */
-	public function addDatabase(Database $database):? Database;
+	public function addDatabase(Database $database):Database|null;
 
 	/**
 	 * provides an array of the account database users.
@@ -224,14 +224,14 @@ interface Account {
 	 * otherwise, it provides an array of all the account database users information.
 	 *
 	 * @param int $db_engine the database engine (see @uses for available engine types).
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
-	 * @param string $database_user the desired database user.
+	 * @param string|null $database_user the desired database user.
 	 *
 	 * @return DatabaseUser[] array of DatabaseUser - holds all the information about the database user.
+	 * @uses Database::ENGINE_POSTGRESQL postgresql database engine.
+	 * @uses Database::ENGINE_MYSQL mysql database engine.
+	 * @uses Database::ENGINE_MONGODB mogodb database engine.
 	 */
-	public function getDatabaseUsers($db_engine, $database_user=null): array;
+	public function getDatabaseUsers(int $db_engine, string|null $database_user=null): array;
 
 	/**
 	 * adds a new database user for the account.
@@ -249,11 +249,11 @@ interface Account {
 	 * domain's certificate information (if the domain exists),
 	 * otherwise, it provides an array of all the account certificates information.
 	 *
-	 * @param string $domain the domain that its certificate is needed.
+	 * @param string|null $domain the domain that its certificate is needed.
 	 *
 	 * @return Certificate[] array of Certificate - holds all the information about the certificate.
 	 */
-	public function getSSLCerts($domain=null): array;
+	public function getSSLCerts(string|null $domain=null): array;
 
 	/**
 	 * adds a new certificate for the account.
@@ -263,14 +263,14 @@ interface Account {
 	 * @return Certificate|null the new added certificate.
 	 * @throws PanelException throws if there is an issue with adding the new certificate for the account.
 	 */
-	public function addSSLCert(Certificate $certificate):? Certificate;
+	public function addSSLCert(Certificate $certificate):Certificate|null;
 
 	/**
 	 * provides the path to the account cron job file.
 	 *
 	 * @return string|null the path to the account cron job file.
 	 */
-	public function getCronJob():? string;
+	public function getCronJob():string|null;
 
 	/**
 	 * replaces the cron job file of the account.
@@ -282,7 +282,7 @@ interface Account {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with replacing the cron job file for the account.
 	 */
-	public function setCronJob($cronjob);
+	public function setCronJob(string $cronjob): void;
 
 	/**
 	 * provides an array of the account ftp accounts.
@@ -290,11 +290,11 @@ interface Account {
 	 * ftp account information (if the ftp account exists),
 	 * otherwise, it provides an array of all the account ftp accounts information.
 	 *
-	 * @param string $account the desired ftp account.
+	 * @param string|null $account the desired ftp account.
 	 *
 	 * @return FTPAccount[] holds all the information about the ftp account.
 	 */
-	public function getFTPAccounts($account=null): array;
+	public function getFTPAccounts(string|null $account=null): array;
 
 	/**
 	 * adds a new ftp account for the account.
@@ -304,7 +304,7 @@ interface Account {
 	 * @return FTPAccount|null the new added ftp account.
 	 * @throws PanelException throws if there is an issue with adding the new ftp account for the account.
 	 */
-	public function addFTPAccount(FTPAccount $account):? FTPAccount;
+	public function addFTPAccount(FTPAccount $account):FTPAccount|null;
 
 	/**
 	 * returns true if the account is root and false otherwise.
@@ -343,14 +343,14 @@ interface Account {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the account.
 	 */
-	public function remove();
+	public function remove(): void;
 
 	/**
 	 * preformed before each restore
 	 * 
 	 * @throws PanelException throws if there is an issue with the post restore script.
 	 */
-	public function preRestore();
+	public function preRestore():void;
 
 	/**
 	 * preformed after each restore
@@ -358,5 +358,7 @@ interface Account {
 	 * @param PostRestoreData $data
 	 * @throws PanelException throws if there is an issue with the post restore script.
 	 */
-	public function postRestore(PostRestoreData $data);
+	public function postRestore(PostRestoreData $data):void;
+	
+	public function isVirtual(): bool;
 }

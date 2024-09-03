@@ -12,10 +12,11 @@ namespace JetBackup\Panel\Account;
 
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Panel\Panel;
+use JetBackup\Core\Panel\Integration\Account\Certificate as iCertificate;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class Certificate implements \JetBackup\Core\Panel\Integration\Account\Certificate {
+class Certificate implements iCertificate {
 
 	/**
 	 * provides the panel id.
@@ -70,5 +71,5 @@ class Certificate implements \JetBackup\Core\Panel\Integration\Account\Certifica
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the certificate.
 	 */
-	public function remove() {}
+	public function remove():void {}
 }

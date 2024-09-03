@@ -12,10 +12,12 @@ namespace JetBackup\Panel\Account;
 
 use JetBackup\Core\Exception\PanelException;
 use JetBackup\Panel\Panel;
+use JetBackup\Core\Panel\Integration\Account\Database as iDatabase;
+use JetBackup\Core\Panel\Integration\Account\DatabaseUser as iDatabaseUser;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class DatabaseUser implements \JetBackup\Core\Panel\Integration\Account\DatabaseUser {
+class DatabaseUser implements iDatabaseUser {
 
 	/**
 	 * provides the panel id.
@@ -47,9 +49,9 @@ class DatabaseUser implements \JetBackup\Core\Panel\Integration\Account\Database
 	 *
 	 * @return int the database engine (see @uses for available engine types).
 	 *
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MYSQL mysql database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_MONGODB mogodb database engine.
-	 * @uses \JetBackup\Core\Panel\Integration\Account\Database::ENGINE_POSTGRESQL postgresql database engine.
+	 * @uses iDatabase::ENGINE_MYSQL mysql database engine.
+	 * @uses iDatabase::ENGINE_MONGODB mogodb database engine.
+	 * @uses iDatabase::ENGINE_POSTGRESQL postgresql database engine.
 	 */
 	public function getEngine(): int { return Database::ENGINE_MYSQL; }
 
@@ -76,5 +78,5 @@ class DatabaseUser implements \JetBackup\Core\Panel\Integration\Account\Database
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the database user.
 	 */
-	public function remove() {}
+	public function remove():void {}
 }

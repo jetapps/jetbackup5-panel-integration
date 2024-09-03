@@ -10,9 +10,11 @@
 **/
 namespace JetBackup\Panel;
 
+use JetBackup\Core\Panel\Integration\PanelInfo as iPanelInfo;
+
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class PanelInfo implements \JetBackup\Core\Panel\Integration\PanelInfo {
+class PanelInfo implements iPanelInfo {
 
 	/**
 	 * provides the panel id.

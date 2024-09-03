@@ -69,5 +69,5 @@ interface Certificate {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the certificate.
 	 */
-	public function remove();
+	public function remove():void;
 }
