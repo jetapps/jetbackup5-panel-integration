@@ -1,0 +1,63 @@
+#!/usr/local/jetapps/usr/bin/php83-cgi
+<?php
+
+use JetBackup\Core\API\API;
+use JetBackup\Core\Download\Downloader;
+use JetBackup\Core\JetBackup;
+
+define('__JETBACKUP__', true);
+
+ini_set('memory_limit', '4096M');
+ini_set('max_execution_time', 1000000);
+
+require_once('/usr/local/jetapps/var/lib/jetbackup5/Core/JetBackup.inc');
+require_once(JetBackup::CORE_PATH . '/autoload.inc');
+
+// $_SERVER['JET_USER_ID'] is the linux id for the logged in account
+
+if(isset($_REQUEST['api']) || isset($_REQUEST['download'])) {
+    if(!isset($_SERVER['JET_USER_ID'])) die(API::outputFormat(API::STATUS_FAILED, "No uid provided"));
+	$uid = intval($_SERVER['JET_USER_ID']);
+	if(!$uid || !($details = posix_getpwuid($uid))) die(API::outputFormat(API::STATUS_FAILED, "Invalid uid provided"));
+
+    if(isset($_REQUEST['api'])) API::run($uid);
+	if(isset($_REQUEST['download'])) Downloader::run($details['name']);
+}
+
+$language = 'en'; // logged in account language (format: en or en_US)
+$version = '5.3.0'; // plugin version
+$template = 'reseller'; // can be 'reseller' for root/reseller UI and 'enduser' end user UI;
+$public_dir = '/plugins/jetbackup5' // the plugin public URI path
+
+?>
+<!doctype html>
+<html lang="<?php echo $language; ?>">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <title>JetBackup</title>
+
+    <script src="<?php echo $public_dir; ?>/libraries/main.js?v=<?php echo $version; ?>" type="text/javascript"></script>
+    <link rel="stylesheet" href="<?php echo $public_dir; ?>/libraries/main.css?v=<?php echo $version; ?>" />
+    <link rel="shortcut icon" href="<?php echo $public_dir; ?>/images/admin_icon.svg" type="image/x-icon"/>
+</head>
+<body>
+
+<div ng-include="'<?php echo $public_dir; ?>/app/views/main.htm?v=<?php echo $version; ?>'" ng-controller="JetBackup" id="JetBackup"></div>
+<script type="text/javascript">
+	new JetBackup({
+		language: '<?php echo $language; ?>',
+        template: '<?php echo $template; ?>',
+		entrypoints: {
+			api: '<?php echo $public_dir; ?>/?api=1&v=<?php echo $version; ?>',
+			download: '<?php echo $public_dir; ?>/?download=1&v=<?php echo $version; ?>',
+		},
+        path: {
+			media: '<?php echo $public_dir; ?>'
+        }
+	});
+</script>
+
+</body>
+</html>
