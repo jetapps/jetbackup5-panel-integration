@@ -7,7 +7,7 @@
 bash <(curl -LSs http://repo.jetlicense.com/static/install)
 ```
 
-#### - RedHet OS's
+#### - RedHat OS's
 
 ```shell
 yum clean all --enablerepo=jetapps,jetapps-alpha
