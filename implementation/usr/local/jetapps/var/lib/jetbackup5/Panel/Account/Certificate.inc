@@ -18,6 +18,14 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 class Certificate implements iCertificate {
 
+	private array $_data;
+	private Account $_account;
+
+	public function __construct(Account $account, array $data) {
+		$this->_data = $data;
+		$this->_account = $account;
+	}
+
 	/**
 	 * provides the panel id.
 	 * the panel id needs to be as follows 'MyCompany_PanelName'.
@@ -32,28 +40,28 @@ class Certificate implements iCertificate {
 	 *
 	 * @return string the certificate domain.
 	 */
-	public function getDomain(): string { return 'acct1.com'; }
+	public function getDomain(): string { return $this->_data['domain']; }
 
 	/**
 	 * provides the private key of the certificate.
 	 *
 	 * @return string the certificate private key.
 	 */
-	public function getPrivateKey(): string { return ''; }
+	public function getPrivateKey(): string { return $this->_data['private_key']; }
 
 	/**
 	 * provides the certificate as string.
 	 *
 	 * @return string the certificate.
 	 */
-	public function getCertificate(): string { return ''; }
+	public function getCertificate(): string { return $this->_data['certificate']; }
 
 	/**
 	 * provides a chain of certificate authority certificates.
 	 *
 	 * @return string a chain of CA certificates.
 	 */
-	public function getCAChain(): string { return ''; }
+	public function getCAChain(): string { return $this->_data['ca_bundle']; }
 
 	/**
 	 * provides the custom data of the certificate (optional, can return an empty string).
@@ -71,5 +79,8 @@ class Certificate implements iCertificate {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the certificate.
 	 */
-	public function remove():void {}
+	public function remove():void {
+		// TODO implement, remove this certificate for this account
+		// e.g. DELETE FROM certificates WHERE account = '{$this->_account->getUsername()}' AND domain = '{$this->getDomain()}'
+	}
 }

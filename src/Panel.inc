@@ -96,4 +96,11 @@ interface Panel {
 	 * @param Log $logger
 	 */
 	public function setLogger(Log $logger);
+
+	/**
+	 * Handle all the panel-related operations that are needed for each panel after a Disaster Recovery.
+	 *
+	 * @throws PanelException
+	 */
+	public function postDisasterRecovery();
 }

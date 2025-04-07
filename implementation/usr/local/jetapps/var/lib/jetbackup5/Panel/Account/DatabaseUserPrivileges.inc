@@ -16,12 +16,17 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 class DatabaseUserPrivileges implements iDatabaseUserPrivileges {
 
+	private array $_data;
+	
+	public function __construct(array $data) {
+		$this->_data = $data;
+	}
 	/**
 	 * provides the database name.
 	 *
 	 * @return string the database name.
 	 */
-	public function getDatabaseName(): string { return 'acct1_mydb'; }
+	public function getDatabaseName(): string { return $this->_data['database']; }
 
 	/**
 	 * provides the database user grants.
@@ -29,5 +34,5 @@ class DatabaseUserPrivileges implements iDatabaseUserPrivileges {
 	 *
 	 * @return array an array with all the database user grants.
 	 */
-	public function getGrants(): array { return ["INSERT","UPDATE","SELECT"]; }
+	public function getGrants(): array { return $this->_data['grants']; }
 }

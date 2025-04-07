@@ -19,6 +19,14 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 class Database implements iDatabase {
 
+	private array $_data;
+	private Account $_account;
+
+	public function __construct(Account $account, array $data) {
+		$this->_data = $data;
+		$this->_account = $account;
+	}
+
 	/**
 	 * provides the panel id.
 	 * the panel id needs to be as follows 'MyCompany_PanelName'.
@@ -33,7 +41,7 @@ class Database implements iDatabase {
 	 *
 	 * @return string the database name.
 	 */
-	public function getName(): string { return 'acct1_mydb'; }
+	public function getName(): string { return $this->_data['name']; }
 
 	/**
 	 * provides the engine of the database.
@@ -44,7 +52,7 @@ class Database implements iDatabase {
 	 * @uses iDatabase::ENGINE_MONGODB mogodb database engine.
 	 * @uses iDatabase::ENGINE_POSTGRESQL postgresql database engine.
 	 */
-	public function getEngine(): int { return self::ENGINE_MYSQL; }
+	public function getEngine(): int { return $this->_data['engine']; }
 
 	/**
 	 * provides the engine name of the database.
@@ -56,14 +64,14 @@ class Database implements iDatabase {
 	 * @uses iDatabase::ENGINE_NAME_MONGODB mongodb database engine name.
 	 * @uses iDatabase::ENGINE_NAME_POSTGRESQL postgresql database engine name.
 	 */
-	public function getEngineName(): int { return self::ENGINE_NAME_MYSQL; }
+	public function getEngineName(): int { return $this->_data['engine_name']; }
 
 	/**
 	 * provides the engine version of the database.
 	 * 
 	 * @return string the engine version
 	 */
-	public function getEngineVersion(): string { return '5.8'; }
+	public function getEngineVersion(): string { return $this->_data['engine_version']; }
 
 	/**
 	 * provides the custom data of the database (optional, can return an empty string).
@@ -97,5 +105,8 @@ class Database implements iDatabase {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the database.
 	 */
-	public function remove():void {}
+	public function remove():void {
+		// TODO implement, remove this database for this account
+		// e.g. DELETE FROM databases WHERE account = '{$this->_account->getUsername()}' AND name = '{$this->getName()}'
+	}
 }

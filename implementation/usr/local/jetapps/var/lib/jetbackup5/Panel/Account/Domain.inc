@@ -18,7 +18,15 @@ use JetBackup\Core\Panel\Integration\Account\Domain as iDomain;
 
 defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
-class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
+class Domain implements iDomain {
+
+	private array $_data;
+	private Account $_account;
+
+	public function __construct(Account $account, array $data) {
+		$this->_data = $data;
+		$this->_account = $account;
+	}
 	
 	/**
 	 * provides the panel id.
@@ -34,14 +42,14 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	 *
 	 * @return string the domain name.
 	 */
-	public function getName(): string { return 'acct1.com'; }
+	public function getName(): string { return $this->_data['name']; }
 
 	/**
 	 * provides the public directory of the domain.
 	 *
 	 * @return string the public directory of the domain.
 	 */
-	public function getPublicDir(): string { return 'public_html'; }
+	public function getPublicDir(): string { return $this->_data['public_dir']; }
 
 	/**
 	 * provides the type of the domain.
@@ -55,15 +63,8 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	 * @uses iDomain::TYPE_DNS_ONLY DNS only domain type.
 	 * @uses iDomain::TYPE_REDIRECT redirect domain type.
 	 */
-	public function getType(): int { return iDomain::TYPE_MAIN_DOMAIN; }
-
-	/**
-	 * provides the account IP
-	 * 
-	 * @return string|null
-	 */
-	public function getIPAddress():? string { return '1.2.3.4'; }
-
+	public function getType(): int { return $this->_data['type']; }
+	
 	/**
 	 * provides the parent domain of the domain.
 	 *
@@ -77,7 +78,7 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	 *
 	 * @return null|string the path to the zone file of the domain.
 	 */
-	public function getZoneFile():string|null { return '/var/named/acct1.com.db'; }
+	public function getZoneFile():string|null { return $this->_data['zone_file']; }
 
 	/**
 	 * provides the domain php details
@@ -112,7 +113,10 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the domain.
 	 */
-	public function remove(bool $remove_data=false):void {}
+	public function remove(bool $remove_data=false):void {
+		// TODO implement, remove this domain account for this account
+		// e.g. DELETE FROM domains WHERE account = '{$this->_account->getUsername()}' AND name = '{$this->getName()}'
+	}
 
 	/**
 	 * return the domain IP addresses
@@ -120,10 +124,12 @@ class Domain implements \JetBackup\Core\Panel\Integration\Account\Domain {
 	 * @return IPAddress[]
 	 */
 	public function getIPAddresses(): array {
-		return [new class implements IPAddress {
-			public function getIP(): string { return '8.8.8.8'; }
+		return [new class($this->_data['ip']) implements IPAddress {
+			private string $_ip;
+			public function __construct(string $ip) { $this->_ip = $ip; }
+			public function getIP(): string { return $this->_ip; }
 			public function isMain(): bool { return true; }
-			public function getType(): int { return self::TYPE_IPV4; }
+			public function getType(): int { return filter_var($this->_ip, FILTER_FLAG_IPV4) ? self::TYPE_IPV4 : self::TYPE_IPV6; }
 		}];
 	}
 

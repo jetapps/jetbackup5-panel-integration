@@ -19,6 +19,14 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 class EmailAccount implements iEmailAccount {
 
+	private array $_data;
+	private Account $_account;
+
+	public function __construct(Account $account, array $data) {
+		$this->_data = $data;
+		$this->_account = $account;
+	}
+
 	/**
 	 * provides the panel id.
 	 * the panel id needs to be as follows 'MyCompany_PanelName'.
@@ -33,28 +41,28 @@ class EmailAccount implements iEmailAccount {
 	 *
 	 * @return string the name of the email account.
 	 */
-	public function getName(): string { return 'email@acct1.com'; }
+	public function getName(): string { return $this->_data['name']; }
 
 	/**
 	 * provides the path of the email account directory.
 	 *
 	 * @return string the path for the email account directory.
 	 */
-	public function getPath(): string { return '/path/to/mailbox'; }
+	public function getPath(): string { return $this->_data['path']; }
 
 	/**
 	 * provides the quota of the email account.
 	 *
 	 * @return int the quota of the email account.
 	 */
-	public function getQuota(): int { return 0; }
+	public function getQuota(): int { return $this->_data['quota']; }
 
 	/**
 	 * provides the "send limit" of the email account.
 	 *
 	 * @return int the "send limit" of the email account.
 	 */
-	public function getSendLimit(): int { return 0; }
+	public function getSendLimit(): int { return $this->_data['send_limit']; }
 
 	/**
 	 * provides the password of the email account.
@@ -63,7 +71,7 @@ class EmailAccount implements iEmailAccount {
 	 *
 	 * @return string the email account hashed password.
 	 */
-	public function getPassword(): string { return '$6$Fg5PejVYNxGTafDO$5mKgXEIBpH6ZXT5mYO9boTCPif7jgpCuu.MbOVWzwnTUYJ/iZ5WVlKEDEBmtq0jatjFQWfD8oXruxXJEQPLOW.'; }
+	public function getPassword(): string { return $this->_data['password']; }
 
 	/**
 	 * @return EmailFilter[]
@@ -88,5 +96,8 @@ class EmailAccount implements iEmailAccount {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the email account.
 	 */
-	public function remove():void {}
+	public function remove():void {
+		// TODO implement, remove this email account for this account
+		// e.g. DELETE FROM email_accounts WHERE account = '{$this->_account->getUsername()}' AND name = '{$this->getName()}'
+	}
 }

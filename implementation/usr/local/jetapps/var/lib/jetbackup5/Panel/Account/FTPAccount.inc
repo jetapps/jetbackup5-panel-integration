@@ -18,6 +18,14 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 class FTPAccount implements iFTPAccount {
 
+	private array $_data;
+	private Account $_account;
+
+	public function __construct(Account $account, array $data) {
+		$this->_data = $data;
+		$this->_account = $account;
+	}
+
 	/**
 	 * provides the panel id.
 	 * the panel id needs to be as follows 'MyCompany_PanelName'.
@@ -39,7 +47,7 @@ class FTPAccount implements iFTPAccount {
 	 *
 	 * @return string the name of the ftp account.
 	 */
-	public function getName(): string { return 'ftp@acct1.com'; }
+	public function getName(): string { return $this->_data['name']; }
 
 	/**
 	 * provides the password of the ftp account.
@@ -48,14 +56,14 @@ class FTPAccount implements iFTPAccount {
 	 *
 	 * @return string the ftp account hashed password.
 	 */
-	public function getPassword(): string { return '$6$Fg5PejVYNxGTafDO$5mKgXEIBpH6ZXT5mYO9boTCPif7jgpCuu.MbOVWzwnTUYJ/iZ5WVlKEDEBmtq0jatjFQWfD8oXruxXJEQPLOW.'; }
+	public function getPassword(): string { return $this->_data['password']; }
 
 	/**
 	 * provides the path of the ftp account.
 	 *
 	 * @return string the path of the ftp account.
 	 */
-	public function getPath(): string { return '/path/to/ftp/account'; }
+	public function getPath(): string { return $this->_data['path']; }
 
 	/**
 	 * provides the custom data of the ftp account (optional, can return an empty string).
@@ -73,5 +81,8 @@ class FTPAccount implements iFTPAccount {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the ftp account.
 	 */
-	public function remove():void {}
+	public function remove():void {
+		// TODO implement, remove this ftp account for this account
+		// e.g. DELETE FROM ftp_accounts WHERE account = '{$this->_account->getUsername()}' AND name = '{$this->getName()}'
+	}
 }

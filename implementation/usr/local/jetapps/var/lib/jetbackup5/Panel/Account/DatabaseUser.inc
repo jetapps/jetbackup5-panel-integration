@@ -19,6 +19,14 @@ defined( '__JETBACKUP__' ) or die( 'Restricted access' );
 
 class DatabaseUser implements iDatabaseUser {
 
+	private array $_data;
+	private Account $_account;
+
+	public function __construct(Account $account, array $data) {
+		$this->_data = $data;
+		$this->_account = $account;
+	}
+
 	/**
 	 * provides the panel id.
 	 * the panel id needs to be as follows 'MyCompany_PanelName'.
@@ -33,7 +41,7 @@ class DatabaseUser implements iDatabaseUser {
 	 *
 	 * @return string|null the database username.
 	 */
-	public function getName():? string { return 'acct1_mydbuser'; }
+	public function getName():? string { return $this->_data['name']; }
 
 	/**
 	 * provides the password of the database user.
@@ -42,7 +50,7 @@ class DatabaseUser implements iDatabaseUser {
 	 *
 	 * @return string|null the database user hashed password.
 	 */
-	public function getPassword():? string { return '$6$Fg5PejVYNxGTafDO$5mKgXEIBpH6ZXT5mYO9boTCPif7jgpCuu.MbOVWzwnTUYJ/iZ5WVlKEDEBmtq0jatjFQWfD8oXruxXJEQPLOW.'; }
+	public function getPassword():? string { return $this->_data['password']; }
 
 	/**
 	 * provides the engine of the database.
@@ -53,14 +61,14 @@ class DatabaseUser implements iDatabaseUser {
 	 * @uses iDatabase::ENGINE_MONGODB mogodb database engine.
 	 * @uses iDatabase::ENGINE_POSTGRESQL postgresql database engine.
 	 */
-	public function getEngine(): int { return Database::ENGINE_MYSQL; }
+	public function getEngine(): int { return $this->_data['engine']; }
 
 	/**
 	 * provides the privileges of the database user.
 	 *
 	 * @return DatabaseUserPrivileges[] array of DatabaseUserPrivileges - holds all the needed information about the database user privileges.
 	 */
-	public function getPrivileges(): array { return [new DatabaseUserPrivileges()]; }
+	public function getPrivileges(): array { return $this->_data['privileges']; }
 
 	/**
 	 * provides the custom data of the database user (optional, can return an empty string).
@@ -78,5 +86,8 @@ class DatabaseUser implements iDatabaseUser {
 	 * @return void
 	 * @throws PanelException throws if there is an issue with removing the database user.
 	 */
-	public function remove():void {}
+	public function remove():void {
+		// TODO implement, remove this database user for this account
+		// e.g. DELETE FROM database_users WHERE account = '{$this->_account->getUsername()}' AND name = '{$this->getName()}'
+	}
 }
