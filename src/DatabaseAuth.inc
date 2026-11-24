@@ -65,9 +65,34 @@ interface DatabaseAuth {
 	public function getLibDir(): string;
 
 	/**
+	 * Retrieves the SSL value. If no value is configured, null is returned.
+	 * We are taking the value as is (if exists), so every value is acceptable, even an empty string.
+	 *
+	 * @return string|null
+	 */
+	public function getSSL():? string;
+
+	/**
+	 * Retrieves the SSL mode value. If no value is configured, null is returned.
+	 * We are taking the value as is (if exists), so every value is acceptable, even an empty string.
+	 * @return string|null
+	 */
+	public function getSSLMode():? string;
+
+	/**
 	 * returns true if the database is stored locally and false otherwise.
 	 * 
 	 * @return bool
 	 */
 	public function isLocal(): bool;
+
+	/**
+	 * @return string|null
+	 */
+	public function getURI():? string;
+
+	/**
+	 * @return string|null
+	 */
+	public function getCA():? string;
 }

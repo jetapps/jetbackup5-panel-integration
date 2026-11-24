@@ -47,6 +47,13 @@ interface Account {
 	public function getHomeDir(): string;
 
 	/**
+	 * provides the mail format of the account (e.g. maildir, mdbox) as enum.
+	 *
+	 * @return MailFormat the mail format of the account.
+	 */
+	public function getMailFormat(): MailFormat;
+
+	/**
 	 * provide the account homedir folder owner
 	 * 
 	 * @return string the account homedir folder owner
@@ -104,6 +111,15 @@ interface Account {
 	 * @return bool is the account suspended or not.
 	 */
 	public function isSuspended(): bool;
+
+	/**
+	 * returns true if the account is a remote account and false otherwise.
+	 * a remote account is an account listed by the panel but hosted on another server
+	 * (e.g. DirectAdmin Multi-Server Setup). remote accounts are not synced to the database.
+	 *
+	 * @return bool is the account a remote account or not.
+	 */
+	public function isRemote(): bool;
 
 	/**
 	 * provides the needed configurations for the account creation.
@@ -164,10 +180,10 @@ interface Account {
 	 *
 	 * @param EmailAccount $account the email account to add.
 	 *
-	 * @return EmailAccount|null the new added email account.
+	 * @return EmailAccount the new added email account.
 	 * @throws PanelException throws if there is an issue with adding the new email account for the account.
 	 */
-	public function addEmailAccount(EmailAccount $account):EmailAccount|null;
+	public function addEmailAccount(EmailAccount $account):EmailAccount;
 
 	/**
 	 * provides an array of the account domains.
@@ -186,10 +202,10 @@ interface Account {
 	 *
 	 * @param Domain $domain the domain to add.
 	 *
-	 * @return Domain|null the new added domain.
+	 * @return Domain the new added domain.
 	 * @throws PanelException throws if there is an issue with adding the new domain for the account.
 	 */
-	public function addDomain(Domain $domain):Domain|null;
+	public function addDomain(Domain $domain):Domain;
 
 	/**
 	 * provides an array of the account databases.
@@ -212,10 +228,10 @@ interface Account {
 	 *
 	 * @param Database $database the database to add.
 	 *
-	 * @return Database|null the new added database.
+	 * @return Database the new added database.
 	 * @throws PanelException throws if there is an issue with adding the new database for the account.
 	 */
-	public function addDatabase(Database $database):Database|null;
+	public function addDatabase(Database $database):Database;
 
 	/**
 	 * provides an array of the account database users.
@@ -238,10 +254,10 @@ interface Account {
 	 *
 	 * @param DatabaseUser $user the database user to add.
 	 *
-	 * @return DatabaseUser|null the new added database user.
+	 * @return DatabaseUser the new added database user.
 	 * @throws PanelException throws if there is an issue with adding the new database user for the account.
 	 */
-	public function addDatabaseUser(DatabaseUser $user):? DatabaseUser;
+	public function addDatabaseUser(DatabaseUser $user):DatabaseUser;
 
 	/**
 	 * provides an array of the account certificates.
@@ -260,10 +276,10 @@ interface Account {
 	 *
 	 * @param Certificate $certificate the certificate to add.
 	 *
-	 * @return Certificate|null the new added certificate.
+	 * @return Certificate the new added certificate.
 	 * @throws PanelException throws if there is an issue with adding the new certificate for the account.
 	 */
-	public function addSSLCert(Certificate $certificate):Certificate|null;
+	public function addSSLCert(Certificate $certificate):Certificate;
 
 	/**
 	 * provides the path to the account cron job file.
@@ -301,10 +317,10 @@ interface Account {
 	 *
 	 * @param FTPAccount $account the ftp account to add.
 	 *
-	 * @return FTPAccount|null the new added ftp account.
+	 * @return FTPAccount the new added ftp account.
 	 * @throws PanelException throws if there is an issue with adding the new ftp account for the account.
 	 */
-	public function addFTPAccount(FTPAccount $account):FTPAccount|null;
+	public function addFTPAccount(FTPAccount $account):FTPAccount;
 
 	/**
 	 * returns true if the account is root and false otherwise.
